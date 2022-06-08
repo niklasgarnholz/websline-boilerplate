@@ -1,0 +1,44 @@
+{
+  "name": "websline-boilerplate",
+  "version": "0.0.1",
+  "description": "THis is a boilerplate for a websline project",
+  "main": "index.js",
+  "scripts": {
+    "watch": "node ./.config/watch.config.js"
+  },
+  "dist": {
+    "css": "./dist/css",
+    "js": "./dist/js",
+    "twig": "./dist/html/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niklasgarnholz/websline-boilerplate.git"
+  },
+  "keywords": [
+    "boilerplate",
+    "scss",
+    "twig",
+    "websline"
+  ],
+  "author": "Niklas Garnholz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niklasgarnholz/websline-boilerplate/issues"
+  },
+  "homepage": "https://github.com/niklasgarnholz/websline-boilerplate#readme",
+  "devDependencies": {
+    "@popperjs/core": "^2.11.5",
+    "autoprefixer": "^10.4.7",
+    "chokidar": "^3.5.3",
+    "esbuild": "^0.14.43",
+    "esbuild-sass-plugin": "^2.2.6",
+    "html-minifier": "^4.0.0",
+    "postcss": "^8.4.14",
+    "sass": "^1.52.2",
+    "twing": "^5.1.1"
+  },
+  "dependencies": {
+    "bootstrap": "^5.1.3"
+  }
+}

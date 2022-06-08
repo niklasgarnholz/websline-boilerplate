@@ -1,0 +1,14 @@
+.env.json
+dist/*
+dist/web/*
+!dist/web
+!dist/web/index.php
+!dist/web/404.asp
+!dist/web/404.htm
+!dist/web/web.config
+!dist/web/public
+!dist/composer.json
+!dist/composer.lock
+node_modules
+development
+.cache

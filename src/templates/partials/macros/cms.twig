@@ -1,0 +1,17 @@
+{#
+  CMS
+#}
+{% macro marginTop() %}[$WCMS.Element{
+  type: 'OptionSelector',
+  key: 'cmsMarginTop',
+  caption: 'Margin Top',
+  mode: 'output',
+  property: 'value', 
+  options: [
+    { key: 'none', value: 'mt-none', caption: 'None' },
+    { key: 'small', value: 'mt-s', caption: 'Small' },
+    { key: 'medium', value: 'mt-m', caption: 'Medium' },
+    { key: 'large', value: 'mt-l', caption: 'Large' },
+    { key: 'xlarge', value: 'mt-xl', caption: 'X-Large' },
+  ] 
+}$]{% endmacro %}

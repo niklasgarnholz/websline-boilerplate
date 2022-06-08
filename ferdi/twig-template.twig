@@ -1,0 +1,38 @@
+{#<% 
+  var splittedPath = modulePath.split('/');
+  var simple = splittedPath.length === 1 || splittedPath[0] === splittedPath[1];
+  var mn = simple ? moduleName : splittedPath[0] + moduleName.charAt(0).toUpperCase() + moduleName.slice(1);
+  var cn = pathOptions.key.charAt(0) + (pathOptions.key.charAt(0) == 'w' ? 'l' : '') + '-' + mn;
+%>
+  <%= cn %>
+  ------------------------------------------------------------
+#}
+
+{# -- Set Defaults -- #}
+{% set defaults = {
+    cn: '<%= cn %>',
+    modifiers: [],
+    customClasses: [],
+    data: {},
+} %}
+
+{# -- Macros -- #}
+{% import 'partials/macros/cms.twig' as cms %}
+{# {% import 'partials/macros/settings.twig' as module %} #}
+
+{# -- Merge Default with Properties -- #}
+{% set props = props is defined ? defaults|merge(props) : defaults %}
+
+{# -- Set CMS Values -- #}
+{% set cmsValues = {
+
+} %}
+
+{# -- Merge CMS Values with Properties -- #}
+{% if isCmsMode() %}
+  {% set props = cmsValues is defined ? props|merge(cmsValues) : props %}
+{% endif %}
+
+<div {{ module.settings(props) }}>
+  <%= mn %>
+</div>

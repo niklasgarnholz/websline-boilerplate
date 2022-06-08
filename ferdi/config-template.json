@@ -1,0 +1,10 @@
+<% 
+  var splittedPath = modulePath.split('/');
+  var simple = splittedPath.length === 1 || splittedPath[0] === splittedPath[1];
+  var mn = simple ? moduleName : splittedPath[0] + moduleName.charAt(0).toUpperCase() + moduleName.slice(1);
+  var cn = pathOptions.key.charAt(0) + (pathOptions.key.charAt(0) == 'w' ? 'l' : '') + '-' + mn;
+%>{
+  "key": "<%= cn %>",
+  "name": "<%= mn %>",
+  "type": "division"
+}

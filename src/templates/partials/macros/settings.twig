@@ -1,0 +1,20 @@
+{#
+  settings
+  ========
+
+  {{ module.settings(opt) }}
+#}
+{% macro settings(opt) %}
+    {# Set module class #}
+    {% if opt.cn %}
+      class="{{ opt.cn }}
+        {# Set modfier classes #}{% if opt.modifiers ?? null %}{% for modifier in opt.modifiers %}{{ modifier | length ? ' ' ~ opt.cn ~ '--' ~ modifier }}{% endfor %}{% endif %}
+        {# Set custom classes #}{% if opt.customClasses ?? null %}{% for customClass in opt.customClasses %}{{ customClass | length ? ' ' ~ customClass }}{% endfor %}{% endif %}
+        {# Set component classes #}{% if opt.componentClasses ?? null %}{% for componentClass in opt.componentClasses %}{{ componentClass | length ? ' ' ~ componentClass }}{% endfor %}{% endif %}"
+    {% endif %}
+
+    {# Set data attributes #}
+    {% if opt.data ?? null %}
+      {% for key, value in opt.data %}{{ '  ' ~ key ~ '=' ~ value }} {% endfor %}
+    {% endif %}
+{% endmacro %}

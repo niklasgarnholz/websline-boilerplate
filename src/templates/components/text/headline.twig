@@ -1,0 +1,33 @@
+{#
+  c-textHeadline
+  ------------------------------------------------------------
+#}
+
+{# -- Set Defaults -- #}
+{% set defaults = {
+    cn: 'c-textHeadline',
+    modifiers: [],
+    customClasses: [],
+    data: {},
+} %}
+
+{# -- Macros -- #}
+{# {% import 'partials/macros/cmsOptions.twig' as cmsOptions %}
+{% import 'partials/macros/settings.twig' as module %} #}
+
+{# -- Merge Default with Properties -- #}
+{% set props = props is defined ? defaults|merge(props) : defaults %}
+
+{# -- Set CMS Values -- #}
+{% set cmsValues = {
+
+} %}
+
+{# -- Merge CMS Values with Properties -- #}
+{# {% if isCmsMode() %}
+  {% set props = cmsValues is defined ? props|merge(cmsValues) : props %}
+{% endif %} #}
+
+<div>
+  Text Headline
+</div>
