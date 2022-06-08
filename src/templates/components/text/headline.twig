@@ -12,8 +12,8 @@
 } %}
 
 {# -- Macros -- #}
-{# {% import 'partials/macros/cmsOptions.twig' as cmsOptions %}
-{% import 'partials/macros/settings.twig' as module %} #}
+{% import 'partials/macros/cms.twig' as cms %}
+{% import 'partials/macros/settings.twig' as module %}
 
 {# -- Merge Default with Properties -- #}
 {% set props = props is defined ? defaults|merge(props) : defaults %}
@@ -24,10 +24,10 @@
 } %}
 
 {# -- Merge CMS Values with Properties -- #}
-{# {% if isCmsMode() %}
+{# {% if isCmsMode() %} #}
   {% set props = cmsValues is defined ? props|merge(cmsValues) : props %}
-{% endif %} #}
+{# {% endif %} #}
 
 <div>
-  Text Headline
+  Text Headlines
 </div>

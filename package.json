@@ -3,8 +3,12 @@
   "version": "0.0.1",
   "description": "THis is a boilerplate for a websline project",
   "main": "index.js",
+  "watch": {
+    "config": "./.config/watch.config.js"
+  },
   "scripts": {
-    "watch": "node ./.config/watch.config.js"
+    "watch": "node ./.config/watch.config.js",
+    "config": "nodemon --watch .config ./.config/watch.config.js"
   },
   "dist": {
     "css": "./dist/css",
@@ -34,6 +38,7 @@
     "esbuild": "^0.14.43",
     "esbuild-sass-plugin": "^2.2.6",
     "html-minifier": "^4.0.0",
+    "nodemon": "^2.0.16",
     "postcss": "^8.4.14",
     "sass": "^1.52.2",
     "twing": "^5.1.1"

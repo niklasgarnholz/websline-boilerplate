@@ -73,7 +73,7 @@ jsWatcher.on('change', (path) => {
 
 // Templates
 
-const templateWatcher = chokidar.watch(['./src/**/*.{twig,json}'], {
+const templateWatcher = chokidar.watch(['./src/templates/**/*.{twig,json}'], {
     ignored: ['./src/templates/partials/**'],
     awaitWriteFinish: {
         stabilityThreshold: 200,
@@ -89,6 +89,7 @@ function readFile(_path) {
         })
     })
 }
+
 
 templateWatcher.on('change', (path) => {
     console.log(`[template]: 💬 ${path} has changed`);
@@ -128,7 +129,6 @@ templateWatcher.on('change', (path) => {
             auto_reload: true,
             source_map: true
         });
-        // const output = new TwingOutputHandler();
 
         const twigSrc = Path.format({ ...Path.parse(path), base: '', ext: '.twig' });
         const twigDist = Path.join(dir, filename + '.html');
@@ -149,12 +149,24 @@ templateWatcher.on('change', (path) => {
             });
         });
 
-        // console.log(output.getContent());
-
-        
-
-        
-
     });
 
 });
+
+
+// Partials 
+const partialsWatcher = chokidar.watch(['./src/templates/**/*.twig'], {
+    ignored: ['./src/templates/components/**'],
+    awaitWriteFinish: {
+        stabilityThreshold: 200,
+        pollInterval: 100
+    },
+});
+
+partialsWatcher.on('change', (path) => {
+    console.log(path);
+})
+
+
+
+
