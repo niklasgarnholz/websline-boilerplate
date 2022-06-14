@@ -1,5 +1,6 @@
 const chokidar = require('chokidar');
 const esbuild = require('esbuild');
+const config = require('./.config.json');
 const pkg = require('../package.json');
 
 // sass
@@ -11,25 +12,26 @@ const autoprefixer = require('autoprefixer');
 const fs = require('fs');
 const Path = require('path');
 const { TwingEnvironment, TwingLoaderFilesystem, TwingOutputHandler } = require('twing');
-const minify = require('html-minifier').minify;
+const minify = require('html-minifier').minify; 
+
+
+const [js, css, twig] = [config.js, config.css, config.twig].map((_config) => {
+    return chokidar.watch(_config.watch, {
+        ignored: _config.ignore,
+        awaitWriteFinish: {
+            stabilityThreshold: 100,
+            pollInterval: 100
+        },
+    });
+})
 
 // SCSS
-
-const scssWatcher = chokidar.watch('./src/**/*.scss', {
-    awaitWriteFinish: {
-        stabilityThreshold: 100,
-        pollInterval: 100
-    },
-});
-
-scssWatcher.on('change', (path) => {
+css.on('change', (path) => {
     console.log(`[scss]: 💬 ${path} has changed`);
 
     esbuild.build({
-        entryPoints: [
-            './src/assets/css/app.scss',
-        ],
-        outdir: pkg.dist.css,
+        entryPoints: config.css.src,
+        outdir: config.css.dist,
         sourcemap: true,
         minify: false,
         plugins: [
@@ -46,24 +48,14 @@ scssWatcher.on('change', (path) => {
     .catch((e) => console.error(e));
 });
 
-
 // JS
 
-const jsWatcher = chokidar.watch('./src/**/*.js', {
-    awaitWriteFinish: {
-        stabilityThreshold: 100,
-        pollInterval: 100
-    },
-});
-
-jsWatcher.on('change', (path) => {
+js.on('change', (path) => {
     console.log(`[js]: 💬 ${path} has changed`);
 
     esbuild.build({
-        entryPoints: [
-            './src/assets/js/app.js',
-        ],
-        outdir: pkg.dist.js,
+        entryPoints: config.js.src,
+        outdir: config.js.dist,
         bundle: true,
         sourcemap: true,
     })
@@ -72,14 +64,6 @@ jsWatcher.on('change', (path) => {
 });
 
 // Templates
-
-const templateWatcher = chokidar.watch(['./src/templates/**/*.{twig,json}'], {
-    ignored: ['./src/templates/partials/**'],
-    awaitWriteFinish: {
-        stabilityThreshold: 200,
-        pollInterval: 100
-    },
-});
 
 function readFile(_path) {
     return new Promise((resolve, reject) => {
@@ -90,8 +74,7 @@ function readFile(_path) {
     })
 }
 
-
-templateWatcher.on('change', (path) => {
+twig.on('change', (path) => {
     console.log(`[template]: 💬 ${path} has changed`);
 
     const jsonFile = Path.format({ ...Path.parse(path), base: '', ext: '.json' });
@@ -104,7 +87,7 @@ templateWatcher.on('change', (path) => {
     // Read JSON file
     readFile(jsonFile).then((_json) => {
         const json = JSON.parse(_json);
-        const dir = Path.join(pkg.dist.twig, json.type, json.key);
+        const dir = Path.join(config.twig.dist, json.type, json.key);
 
         // Check if json type is right
         if(!acceptedTypes.includes(json.type)) return console.log(`[template]: ❌ ${path} can't be compiled because "${json.type}" is not accepted`);   
@@ -125,8 +108,6 @@ templateWatcher.on('change', (path) => {
         const loader = new TwingLoaderFilesystem('./' + templatePath);
         const twing = new TwingEnvironment(loader, { 
             autoescape: false,
-            cache: './.cache/',
-            auto_reload: true,
             source_map: true
         });
 
@@ -152,20 +133,6 @@ templateWatcher.on('change', (path) => {
     });
 
 });
-
-
-// Partials 
-const partialsWatcher = chokidar.watch(['./src/templates/**/*.twig'], {
-    ignored: ['./src/templates/components/**'],
-    awaitWriteFinish: {
-        stabilityThreshold: 200,
-        pollInterval: 100
-    },
-});
-
-partialsWatcher.on('change', (path) => {
-    console.log(path);
-})
 
 
 
