@@ -10,11 +10,6 @@
     "watch": "node ./.config/watch.config.js",
     "config": "nodemon --watch .config ./.config/watch.config.js"
   },
-  "dist": {
-    "css": "./dist/css",
-    "js": "./dist/js",
-    "twig": "./dist/html/"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/niklasgarnholz/websline-boilerplate.git"
