@@ -7,13 +7,14 @@
     "config": "./.config/watch.config.js"
   },
   "scripts": {
-    "watch": "node ./.config/watch.config.js",
+    "watch": "NODE_ENV=production node ./.config/watch.config.js",
+    "watch:dev": "NODE_ENV=dev node ./.config/watch.config.js",
     "config": "nodemon --watch .config ./.config/watch.config.js"
   },
   "dist": {
     "css": "./dist/css",
     "js": "./dist/js",
-    "twig": "./dist/html/"
+    "templates": "./dist/html"
   },
   "repository": {
     "type": "git",
