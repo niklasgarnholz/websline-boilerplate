@@ -1,7 +1,7 @@
 {
   "name": "websline-boilerplate",
   "version": "0.0.1",
-  "description": "THis is a boilerplate for a websline project",
+  "description": "This is a boilerplate for a websline project",
   "main": "index.js",
   "watch": {
     "config": "./.config/watch.config.js"
@@ -33,7 +33,6 @@
   },
   "homepage": "https://github.com/niklasgarnholz/websline-boilerplate#readme",
   "devDependencies": {
-    "@popperjs/core": "^2.11.5",
     "autoprefixer": "^10.4.7",
     "chokidar": "^3.5.3",
     "esbuild": "^0.14.43",

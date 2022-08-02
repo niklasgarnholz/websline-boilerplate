@@ -1,0 +1,17 @@
+{
+    "css" : {
+        "dist": "./dist/css",
+        "watch": "./src/**/*.scss",
+        "src": ["./src/assets/css/app.scss"]
+    },
+    "js" : {
+        "dist": "./dist/js",
+        "watch": "./src/**/*.js",
+        "src": ["./src/assets/js/app.js"]
+    },
+    "twig" : {
+        "dist": "./dist/html/",
+        "watch": "./src/templates/**/*.{twig,json}",
+        "ignored": ["./src/templates/partials/**"]
+    }
+}
