@@ -41,7 +41,7 @@ class TwigService {
             console.log(`[template]: ✅ ${path} has written`);
         }
 
-        this.updatedFiles += 1;
+        this.updatedFiles++;
         clearTimeout(this.timeouts?.wf);
         this.timeouts.wf = setTimeout(() => {
             console.log(`[template]: updated ${this.updatedFiles} files`);

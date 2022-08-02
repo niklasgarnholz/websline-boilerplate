@@ -1,7 +1,6 @@
 const chokidar = require('chokidar');
 const esbuild = require('esbuild');
-const config = require('./.config.json');
-const pkg = require('../package.json');
+const config = require('./config.json');
 
 // sass
 const sass = require('esbuild-sass-plugin');
@@ -12,13 +11,6 @@ const autoprefixer = require('autoprefixer');
 const { TwigService } = require('./partials/twig');
 const cmsMode = true;
 const devMode = process.env.NODE_ENV === 'dev';
-
-
-// const fs = require('fs');
-// const Path = require('path');
-// const { TwingEnvironment, TwingLoaderFilesystem, TwingOutputHandler } = require('twing');
-// const minify = require('html-minifier').minify; 
-
 
 const [js, css, twig] = [config.js, config.css, config.twig].map((_config) => {
     return chokidar.watch(_config.watch, {
@@ -37,7 +29,7 @@ css.on('change', (path) => {
     esbuild.build({
         entryPoints: config.css.src,
         outdir: config.css.dist,
-        sourcemap: true,
+        sourcemap: devMode,
         minify: !devMode,
         plugins: [
             sass.sassPlugin({
@@ -62,7 +54,7 @@ js.on('change', (path) => {
         entryPoints: config.js.src,
         outdir: config.js.dist,
         bundle: true,
-        sourcemap: true,
+        sourcemap: devMode,
         minify: !devMode,
     })
     .then(() =>  console.log(`[js]: ✅ Files has been compiled`))
@@ -72,21 +64,15 @@ js.on('change', (path) => {
 // Templates
 
 const templatesDir = './src/templates';
+
 const twigService = new TwigService({
     cmsMode,
     devMode,
     srcDir: templatesDir,
-    distDir: pkg.dist.templates,
+    distDir: config.twig.dist,
 });
 
-const templateWatcher = chokidar.watch([`${templatesDir}/**/*.{twig,json}`], {
-    awaitWriteFinish: {
-        stabilityThreshold: 200,
-        pollInterval: 100
-    },
-});
-
-templateWatcher.on('all', (event, path) => {
+twig.on('all', (event, path) => {
     if (devMode) {
         console.log(`[template]: 💬 ${path} got event: ${event}`);
     }

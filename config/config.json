@@ -11,7 +11,6 @@
     },
     "twig" : {
         "dist": "./dist/html/",
-        "watch": "./src/templates/**/*.{twig,json}",
-        "ignored": ["./src/templates/partials/**"]
+        "watch": "./src/templates/**/*.{twig,json}"
     }
 }
