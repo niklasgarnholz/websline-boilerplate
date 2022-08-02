@@ -28,6 +28,6 @@
   {% set props = cmsValues is defined ? props|merge(cmsValues) : props %}
 {# {% endif %} #}
 
-<div>
+<div {{ module.settings(props) }}>
   Text Headlines
 </div>
